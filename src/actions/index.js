@@ -5,15 +5,13 @@ const formatPractitioners = (practitioners) =>
   practitioners.map(({ resource }) => ({
     id: resource.id,
     name: {
-      firstName: resource.name && resource.name[0] ? resource.name[0].given : undefined,
-      lastName: resource.name && resource.name[0] ? resource.name[0].family : undefined,
-      lastNameComposed: resource.name && resource.name[0] && resource.name[0]._family && resource.name[0]._family.extension[1] && resource.name[0]._family.extension[2]
-        ? [
-            resource.name[0]._family.extension[1].valueString,
-            resource.name[0]._family.extension[2].valueString,
-          ]
-        : undefined,
-    }
+      firstName: resource.name && resource.name[0].given && resource.name[0].given.length > 0 ? resource.name[0].given.join(' ') : undefined,
+      lastName: resource.name && resource.name[0].family,
+    },
+    address: resource.address ? resource.address.text : undefined,
+    phone: resource.telecom && resource.telecom ? resource.telecom.filter(dataCom => dataCom.system === 'phone').map(phone => phone.value) : undefined,
+    fax: resource.telecom && resource.telecom ? resource.telecom.filter(dataCom => dataCom === 'fax').map(fax => fax.value) : undefined,
+    email: resource.telecom && resource.telecom ? resource.telecom.filter(dataCom => dataCom === 'email').map(email => email.value) : undefined
   }));
 
 export const fetchPractitioners = () => (dispatch) =>
@@ -21,7 +19,6 @@ export const fetchPractitioners = () => (dispatch) =>
     let practitionersFormatted = [];
 
     if (res.data && res.data.entry && res.data.entry.length > 0) {
-      // console.log("res.data.entry :", res.data.entry);
       practitionersFormatted = formatPractitioners(res.data.entry);
     }
 
