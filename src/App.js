@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import PractitionerList from "./PractitionerList";
-import PractitionerDetails from "./PractitionerDetails";
 import { connect } from 'react-redux';
 import { fetchPractitioners } from './actions/index';
+import PractitionerList from "./PractitionerList";
+import PractitionerPage from "./PractitionerPage";
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class App extends React.Component {
           <Route
             exact path="/practitioner/:id"
             render={(routeProps) => practitioners && practitioners.length > 0 && (
-              <PractitionerDetails practitioner={practitioners.find(practitioner => routeProps.match.params.id === practitioner.id)} />
+              <PractitionerPage practitioner={practitioners.find(practitioner => routeProps.match.params.id === practitioner.id)} />
             )}
           />
         </Router>

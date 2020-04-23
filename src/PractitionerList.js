@@ -11,12 +11,12 @@ export class PractitionerList extends Component {
     }
 
     const practitionersFiltered = practitioners.reduce((accumulate = [], practitioner) => {
-      const { id, name } = practitioner;
+      const { id, firstName, lastName } = practitioner;
 
       const practitionerFormatted = {
         id,
-        firstName: name.firstName ? name.firstName : null,
-        lastName: name.lastName ? name.lastName : null,
+        firstName: firstName || null,
+        lastName: lastName || null,
       };
 
       if (practitionerFormatted.firstName && practitionerFormatted.lastName) {

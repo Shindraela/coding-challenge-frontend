@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editPractitioner } from './actions/index';
 
 export class PractitionerDetails extends Component {
   render() {
@@ -9,11 +11,9 @@ export class PractitionerDetails extends Component {
         <h1>Practitioners Details</h1>
         <div>
           <ul>
-            {practitioner.name.firstName && <li>First name : {practitioner.name.firstName}</li>}
-            {practitioner.name.lastName && <li>Last name : {practitioner.name.lastName}</li>}
-            {practitioner.address && practitioner.address.length > 0 && practitioner.address.map((address) => (
-              <li key={address}>Address : {address}</li>
-            ))}
+            {practitioner.firstName && <li>First name : {practitioner.firstName}</li>}
+            {practitioner.lastName && <li>Last name : {practitioner.lastName}</li>}
+            {practitioner.address && practitioner.address.length > 0 && <li key={practitioner.address}>Address : {practitioner.address}</li>}
             {practitioner.phone && practitioner.phone.length > 0 && practitioner.phone.map((phone) => (
               <li key={phone}>Phone : {phone}</li>
             ))}
@@ -30,4 +30,12 @@ export class PractitionerDetails extends Component {
   }
 }
 
-export default PractitionerDetails;
+const mapStateToProps = (state) => ({
+  practitioners: state.practitioners.items,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  editPractitioner: () => dispatch(editPractitioner()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PractitionerDetails);
