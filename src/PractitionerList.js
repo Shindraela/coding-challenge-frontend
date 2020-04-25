@@ -5,6 +5,18 @@ import { fetchPractitioners } from './actions/index';
 import { Link } from "react-router-dom";
 
 export class PractitionerList extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      term: ''
+    }
+  }
+
+  componentDidMount() {
+    this.props.fetchPractitioners();
+  }
+
   renderPractitioners() {
     const { practitioners } = this.props;
 
@@ -42,18 +54,28 @@ export class PractitionerList extends Component {
 
   getPreviousItems() {
     const {urlPreviousPage, fetchPractitioners } = this.props;
-
     fetchPractitioners(urlPreviousPage);
   }
 
   getNextItems() {
     const { urlNextPage, fetchPractitioners } = this.props;
-
     fetchPractitioners(urlNextPage);
+  }
+
+  handleTermSearch(term) {
+    const { fetchPractitioners } = this.props;
+    const searchUrl = `http://hapi.fhir.org/baseDstu3/Practitioner?given=${term}&_format=json&_pretty=true`;
+    
+    this.setState({
+      term
+    });
+
+    return term ? fetchPractitioners(searchUrl) : fetchPractitioners();
   }
 
   render() {
     const { error, loading, urlPreviousPage, urlNextPage } = this.props;
+    const { term } = this.state;
 
     if (error) return <div>Error! {error.message}</div>;
 
@@ -64,6 +86,7 @@ export class PractitionerList extends Component {
     return (
       <div>
         <h1>Practitioners List</h1>
+        <input name="term" type="text" value={term} onChange={(e) => this.handleTermSearch(e.target.value)} />
         {this.renderPractitioners()}
         {urlPreviousPage && <button type="button" onClick={() => this.getPreviousItems()}>Précedent</button>}
         {urlNextPage && <button type="button" onClick={() => this.getNextItems()}>Suivant</button>}
