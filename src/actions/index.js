@@ -12,16 +12,27 @@ const formatPractitioners = (practitioners) =>
     email: resource.telecom && resource.telecom ? resource.telecom.filter(dataCom => dataCom.system === 'email').map(email => email.value) : undefined
   }));
 
-export const fetchPractitioners = () => (dispatch) =>
-  axios.get('http://hapi.fhir.org/baseDstu3/Practitioner').then((res) => {
+export const fetchPractitioners = (url) => (dispatch) => {
+  const requestUrl = url || 'http://hapi.fhir.org/baseDstu3/Practitioner';
+
+  axios.get(requestUrl).then((res) => {
     let practitionersFormatted = [];
+    let urlNextPage = null;
+    let urlPreviousPage = null;
 
     if (res.data && res.data.entry && res.data.entry.length > 0) {
       practitionersFormatted = formatPractitioners(res.data.entry);
+
+      const nextPage = res.data.link.find(link => link.relation === 'next');
+      urlNextPage = nextPage ? nextPage.url : null;
+
+      const previousPage = res.data.link.find(link => link.relation === 'previous');
+      urlPreviousPage = previousPage ? previousPage.url : null;
     }
 
-    dispatch({ type: FETCH_PRACTITIONERS_SUCCESS, payload: practitionersFormatted });
+    dispatch({ type: FETCH_PRACTITIONERS_SUCCESS, payload: { practitioners: practitionersFormatted, urlPreviousPage, urlNextPage }});
   });
+}
 
 export const editPractitioner = (practitioner) => (dispatch) =>
   dispatch({ type: EDIT_PRACTITIONER, payload: practitioner });

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import uniqBy from 'lodash/uniqBy';
+import { connect } from 'react-redux';
+import { fetchPractitioners } from './actions/index';
 import { Link } from "react-router-dom";
 
 export class PractitionerList extends Component {
   renderPractitioners() {
     const { practitioners } = this.props;
-
-    if (!practitioners || practitioners.length === 0) {
-      return null;
-    }
 
     const practitionersFiltered = practitioners.reduce((accumulate = [], practitioner) => {
       const { id, firstName, lastName } = practitioner;
@@ -31,15 +29,31 @@ export class PractitionerList extends Component {
       name: `${firstName} ${lastName}`,
     }));
 
-    const onlyUniquePractitioner = uniqBy(practitionersFormatted, 'name');
+    const onlyUniquePractitioners = uniqBy(practitionersFormatted, 'name');
+    
+    return onlyUniquePractitioners && onlyUniquePractitioners.length > 0 ?
+      <ul>
+        {
+        onlyUniquePractitioners.map((practitioner) => (
+        <li key={practitioner.id}><Link to={`/practitioner/${practitioner.id}`}>{practitioner.name}</Link></li>
+        ))}
+      </ul> : <div>No Practitioners</div>;
+  }
 
-    return onlyUniquePractitioner.map((practitioner) => (
-      <li key={practitioner.id}><Link to={`/practitioner/${practitioner.id}`}>{practitioner.name}</Link></li>
-    ));
+  getPreviousItems() {
+    const {urlPreviousPage, fetchPractitioners } = this.props;
+
+    fetchPractitioners(urlPreviousPage);
+  }
+
+  getNextItems() {
+    const { urlNextPage, fetchPractitioners } = this.props;
+
+    fetchPractitioners(urlNextPage);
   }
 
   render() {
-    const { error, loading } = this.props;
+    const { error, loading, urlPreviousPage, urlNextPage } = this.props;
 
     if (error) return <div>Error! {error.message}</div>;
 
@@ -50,10 +64,21 @@ export class PractitionerList extends Component {
     return (
       <div>
         <h1>Practitioners List</h1>
-        <ul>{this.renderPractitioners()}</ul>
+        {this.renderPractitioners()}
+        {urlPreviousPage && <button type="button" onClick={() => this.getPreviousItems()}>Précedent</button>}
+        {urlNextPage && <button type="button" onClick={() => this.getNextItems()}>Suivant</button>}
       </div>
     );
   }
 }
 
-export default PractitionerList;
+const mapStateToProps = (state) => ({
+  urlNextPage: state.practitioners.urlNextPage,
+  urlPreviousPage: state.practitioners.urlPreviousPage,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchPractitioners: (url) => dispatch(fetchPractitioners(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PractitionerList);

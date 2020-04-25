@@ -7,6 +7,8 @@ import {
 
 const initialState = {
   items: [],
+  urlNextPage: null,
+  urlPreviousPage: null,
   loading: false,
   isEditing: false,
   error: null
@@ -17,7 +19,7 @@ export default function practitionerReducer(state = initialState, action) {
     case FETCH_PRACTITIONERS_BEGIN:
       return { ...state, loading: true, isEditing: false, error: null };
     case FETCH_PRACTITIONERS_SUCCESS:
-      return {...state, loading: false, isEditing: false, items: action.payload };
+      return {...state, loading: false, isEditing: false, items: action.payload.practitioners, urlNextPage: action.payload.urlNextPage, urlPreviousPage: action.payload.urlPreviousPage };
     case FETCH_PRACTITIONERS_FAILURE:
       return { ...state, loading: false, isEditing: false, error: action.payload.error, items: [] };
     case UPDATE_PRACTITIONER:
