@@ -1,0 +1,11 @@
+@media screen and (min-width: 1024px) {
+  .position-btn {
+    right: 38rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .position-btn {
+    right: 56rem;
+  }
+}

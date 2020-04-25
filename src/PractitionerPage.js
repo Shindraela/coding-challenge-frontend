@@ -37,10 +37,12 @@ export class PractitionerPage extends React.Component {
 
         {
           isEditing ?
-          <button type="button" onClick={() => this.setIsEditing(false)}>Cancel</button> :
-          <div>
-            <Link to="/">Go Back</Link>
-            <button type="button" onClick={() => this.setIsEditing(true)}>Edit</button>
+          <div className="d-flex justify-content-start">
+            <button type="button" className="btn btn-danger" onClick={() => this.setIsEditing(false)}>Annuler</button>
+          </div> :
+          <div className="d-flex justify-content-end">
+            <Link to="/" className="btn btn-secondary">Go Back</Link>
+            <button type="button" className="btn btn-info" onClick={() => this.setIsEditing(true)}>Editer</button>
           </div>
         }
       </section>

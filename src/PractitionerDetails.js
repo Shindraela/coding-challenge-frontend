@@ -9,21 +9,36 @@ export class PractitionerDetails extends Component {
     return (
       <section>
         <h1>Practitioners Details</h1>
-        <div>
-          <ul>
-            {practitioner.firstName && <li>First name : {practitioner.firstName}</li>}
-            {practitioner.lastName && <li>Last name : {practitioner.lastName}</li>}
-            {practitioner.address && practitioner.address.length > 0 && <li key={practitioner.address}>Address : {practitioner.address}</li>}
-            {practitioner.phone && practitioner.phone.length > 0 && practitioner.phone.map((phone) => (
-              <li key={phone}>Phone : {phone}</li>
-            ))}
-            {practitioner.fax && practitioner.fax.length > 0 && practitioner.fax.map((fax) => (
-              <li key={fax}>Fax : {fax}</li>
-            ))}
-            {practitioner.email && practitioner.email.length > 0 && practitioner.email.map((email) => (
-              <li key={email}>Email : {email}</li>
-            ))}
-          </ul>
+
+        <div className="table-responsive">
+          <table className="table">
+            <thead className="thead-dark">
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Fax</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {practitioner.lastName && <td>{practitioner.lastName}</td>}
+                {practitioner.firstName && <td>{practitioner.firstName}</td>}
+                {practitioner.address && practitioner.address.length > 0 && <td>{practitioner.address}</td>}
+                {practitioner.phone && practitioner.phone.length > 0 && practitioner.phone.map((phone, idx) => (
+                  <td key={`phone${idx}`}>{phone}</td>
+                ))}
+                {practitioner.fax && practitioner.fax.length > 0 && practitioner.fax.map((fax, idx) => (
+                  <td key={`fax${idx}`}>{fax}</td>
+                ))}
+                {practitioner.email && practitioner.email.length > 0 && practitioner.email.map((email, idx) => (
+                  <td key={`email${idx}`}>{email}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     );

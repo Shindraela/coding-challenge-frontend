@@ -44,12 +44,14 @@ export class PractitionerList extends Component {
     const onlyUniquePractitioners = uniqBy(practitionersFormatted, 'name');
     
     return onlyUniquePractitioners && onlyUniquePractitioners.length > 0 ?
-      <ul>
-        {
-        onlyUniquePractitioners.map((practitioner) => (
-        <li key={practitioner.id}><Link to={`/practitioner/${practitioner.id}`}>{practitioner.name}</Link></li>
-        ))}
-      </ul> : <div>No Practitioners</div>;
+      <div className="row">
+        <ul>
+          {
+          onlyUniquePractitioners.map((practitioner) => (
+          <li key={practitioner.id}><Link to={`/practitioner/${practitioner.id}`}>{practitioner.name}</Link></li>
+          ))}
+        </ul>
+      </div> : <div className="row">Pas de praticiens sur cette page.</div>;
   }
 
   getPreviousItems() {
@@ -84,13 +86,19 @@ export class PractitionerList extends Component {
     }
 
     return (
-      <div>
-        <h1>Practitioners List</h1>
-        <input name="term" type="text" value={term} onChange={(e) => this.handleTermSearch(e.target.value)} />
+      <section className="container">
+        <h1>Liste des praticiens</h1>
+        <div className="row">
+          <span>Recherchez un nom :</span>
+          <input name="term" type="text" value={term} onChange={(e) => this.handleTermSearch(e.target.value)} />
+        </div>
+
         {this.renderPractitioners()}
-        {urlPreviousPage && <button type="button" onClick={() => this.getPreviousItems()}>Précedent</button>}
-        {urlNextPage && <button type="button" onClick={() => this.getNextItems()}>Suivant</button>}
-      </div>
+        <div className="row position-btn">
+          {urlPreviousPage && <button type="button" className="btn btn-primary" onClick={() => this.getPreviousItems()}>Précedent</button>}
+          {urlNextPage && <button type="button" className="btn btn-primary" onClick={() => this.getNextItems()}>Suivant</button>}
+        </div>
+      </section>
     );
   }
 }

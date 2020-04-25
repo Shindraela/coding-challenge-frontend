@@ -43,41 +43,54 @@ export class PractitionerEditForm extends React.Component {
       <section>
         <h1>Edit Practitioner</h1>
 
-        <div key={practitioner.id} className="practitioner">
+        <div key={practitioner.id} className="container">
           <form method="PUT" className="form" onSubmit={this.onSubmit}>
-            <input required name="firstName" type="text" value={firstName} onChange={(e) => this.handleValue(e.target.value, 'firstName')} />
+            <div className="form-group">
+              <label className="bold-font">Nom</label>
+              <input required name="lastName" type="text" className="form-control" value={lastName} onChange={(e) => this.handleValue(e.target.value, 'lastName')} />
+            </div>
+            <div className="form-group">
+              <label className="bold-font">Prénom</label>
+              <input required name="firstName" type="text" className="form-control" value={firstName} onChange={(e) => this.handleValue(e.target.value, 'firstName')} />
+            </div>
+            <div className="form-group">
+              <label className="bold-font">Adresse</label>
+              {
+                address && address.length > 0 ? address.map((address, idx) => (
+                    <input required type="text" className="form-control" key={`address${idx}`} value={address} placeholder="Edit address" onChange={(e) => this.handleMultiValue(e.target.value, 'address', idx)} />
+                  )) :
+                  <input required type="text" className="form-control" placeholder="Edit address" />
+              }
+            </div>
+            <div className="form-group">
+              <label className="bold-font">Téléphone</label>
+              {
+                phone && phone.length > 0 ? phone.map((phone, idx) => (
+                    <input required type="text" className="form-control" key={`phone${idx}`} value={phone} placeholder="Edit phone" onChange={(e) => this.handleMultiValue(e.target.value, 'phone', idx)} />
+                  )) :
+                  <input required type="text" className="form-control" placeholder="Edit phone" />
+              }
+            </div>
+            <div className="form-group">
+              <label className="bold-font">Fax</label>
+              {
+                fax && fax.length > 0 ? fax.map((fax, idx) => (
+                    <input required type="text" className="form-control" key={`fax${idx}`} value={fax} placeholder="Edit fax" onChange={(e) => this.handleMultiValue(e.target.value, 'fax', idx)} />
+                  )) :
+                  <input required type="text" className="form-control" placeholder="Edit fax" />
+              }
+            </div>
+            <div className="form-group">
+              <label className="bold-font">Email</label>
+              {
+                email && email.length > 0 ? email.map((email, idx) => (
+                    <input required type="text" className="form-control" key={`email${idx}`} value={email} placeholder="Edit email" onChange={(e) => this.handleMultiValue(e.target.value, 'email', idx)} />
+                  )) :
+                  <input required type="text" className="form-control" placeholder="Edit email" />
+              }
+            </div>
 
-            <input required name="lastName" type="text" value={lastName} onChange={(e) => this.handleValue(e.target.value, 'lastName')} />
-
-            {
-              address && address.length > 0 ? address.map((address, idx) => (
-                  <input required type="text" key={`address${idx}`} value={address} placeholder="Edit address" onChange={(e) => this.handleMultiValue(e.target.value, 'address', idx)} />
-                )) :
-                <input required type="text" placeholder="Edit address" />
-            }
-
-            {
-              phone && phone.length > 0 ? phone.map((phone, idx) => (
-                  <input required type="text" key={`phone${idx}`} value={phone} placeholder="Edit phone" onChange={(e) => this.handleMultiValue(e.target.value, 'phone', idx)} />
-                )) :
-                <input required type="text" placeholder="Edit phone" />
-            }
-
-            {
-              fax && fax.length > 0 ? fax.map((fax, idx) => (
-                  <input required type="text" key={`fax${idx}`} value={fax} placeholder="Edit fax" onChange={(e) => this.handleMultiValue(e.target.value, 'fax', idx)} />
-                )) :
-                <input required type="text" placeholder="Edit fax" />
-            }
-
-            {
-              email && email.length > 0 ? email.map((email, idx) => (
-                  <input required type="text" key={`email${idx}`} value={email} placeholder="Edit email" onChange={(e) => this.handleMultiValue(e.target.value, 'email', idx)} />
-                )) :
-                <input required type="text" placeholder="Edit email" />
-            }
-
-            <button>Update</button>
+            <button type="button" className="btn btn-success">Valider</button>
           </form>
         </div>
       </section>

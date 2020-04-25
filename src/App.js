@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { fetchPractitioners } from './actions/index';
 import PractitionerList from "./PractitionerList";
 import PractitionerPage from "./PractitionerPage";
+import './App.css';
+import './Tablet.css';
+import './Laptop.css';
 
 class App extends React.Component {
   componentDidMount() {
@@ -14,7 +17,7 @@ class App extends React.Component {
     const { practitioners } = this.props;
 
     return (
-      <section className="App">
+      <section className="container-fluid">
         <Router basename="">
           <Route exact path="/"><PractitionerList practitioners={practitioners} /></Route>
           <Route
