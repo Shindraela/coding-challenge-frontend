@@ -19,10 +19,10 @@ export class PractitionerEditForm extends React.Component {
   handleMultiValue = (value, type, index) => {
     const multiData = this.state[type];
     multiData[index] = value;
-    this.handleEdit(type, multiData);
+    this.handleValue(type, multiData);
   }
 
-  handleEdit = (value, type) => {
+  handleValue = (value, type) => {
     this.setState({
       [type]: value
     });

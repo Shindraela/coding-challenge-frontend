@@ -56,12 +56,14 @@ export class PractitionerList extends Component {
 
   getPreviousItems() {
     const {urlPreviousPage, fetchPractitioners } = this.props;
-    fetchPractitioners(urlPreviousPage);
+    let tmp = urlPreviousPage.replace("p","ps");
+    fetchPractitioners(tmp);
   }
 
   getNextItems() {
     const { urlNextPage, fetchPractitioners } = this.props;
-    fetchPractitioners(urlNextPage);
+    let tmp = urlNextPage.replace("p","ps");
+    fetchPractitioners(tmp);
   }
 
   handleTermSearch(term) {
