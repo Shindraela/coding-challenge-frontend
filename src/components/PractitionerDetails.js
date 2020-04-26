@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editPractitioner } from './actions/index';
+import { editPractitioner } from '../actions/index';
 
 export class PractitionerDetails extends Component {
   render() {
-    const { practitioner } = this.props;
+    const { practitioner, t } = this.props;
 
     return (
       <section>
-        <h1>Practitioners Details</h1>
+        <h1>{t("practitionerDetailsTitle")}</h1>
 
         <div className="table-responsive">
           <table className="table">
             <thead className="thead-dark">
               <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Adresse</th>
-                <th>Téléphone</th>
-                <th>Fax</th>
-                <th>Email</th>
+                <th>{t("lastName")}</th>
+                <th>{t("firstName")}</th>
+                <th>{t("address")}</th>
+                <th>{t("phone")}</th>
+                <th>{t("fax")}</th>
+                <th>{t("email")}</th>
               </tr>
             </thead>
             <tbody>

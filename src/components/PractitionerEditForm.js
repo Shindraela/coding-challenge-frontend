@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updatePractitioner } from './actions/index';
+import { updatePractitioner } from '../actions/index';
 
 export class PractitionerEditForm extends React.Component {
   constructor(props) {
@@ -17,7 +17,6 @@ export class PractitionerEditForm extends React.Component {
   }
 
   handleMultiValue = (value, type, index) => {
-    // récup liste des téléphones
     const multiData = this.state[type];
     multiData[index] = value;
     this.handleEdit(type, multiData);
@@ -36,25 +35,25 @@ export class PractitionerEditForm extends React.Component {
   }
 
   render() {
-    const { practitioner } = this.props;
+    const { practitioner, t } = this.props;
     const { firstName, lastName, address, phone, fax, email } = this.state;
 
     return (
       <section>
-        <h1>Edit Practitioner</h1>
+        <h1>{t("editPractitionerTitle")}</h1>
 
         <div key={practitioner.id} className="container">
           <form method="PUT" className="form" onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label className="bold-font">Nom</label>
+              <label className="bold-font">{t("lastName")}</label>
               <input required name="lastName" type="text" className="form-control" value={lastName} onChange={(e) => this.handleValue(e.target.value, 'lastName')} />
             </div>
             <div className="form-group">
-              <label className="bold-font">Prénom</label>
+              <label className="bold-font">{t("firstName")}</label>
               <input required name="firstName" type="text" className="form-control" value={firstName} onChange={(e) => this.handleValue(e.target.value, 'firstName')} />
             </div>
             <div className="form-group">
-              <label className="bold-font">Adresse</label>
+              <label className="bold-font">{t("address")}</label>
               {
                 address && address.length > 0 ? address.map((address, idx) => (
                     <input required type="text" className="form-control" key={`address${idx}`} value={address} placeholder="Edit address" onChange={(e) => this.handleMultiValue(e.target.value, 'address', idx)} />
@@ -63,7 +62,7 @@ export class PractitionerEditForm extends React.Component {
               }
             </div>
             <div className="form-group">
-              <label className="bold-font">Téléphone</label>
+              <label className="bold-font">{t("phone")}</label>
               {
                 phone && phone.length > 0 ? phone.map((phone, idx) => (
                     <input required type="text" className="form-control" key={`phone${idx}`} value={phone} placeholder="Edit phone" onChange={(e) => this.handleMultiValue(e.target.value, 'phone', idx)} />
@@ -72,7 +71,7 @@ export class PractitionerEditForm extends React.Component {
               }
             </div>
             <div className="form-group">
-              <label className="bold-font">Fax</label>
+              <label className="bold-font">{t("fax")}</label>
               {
                 fax && fax.length > 0 ? fax.map((fax, idx) => (
                     <input required type="text" className="form-control" key={`fax${idx}`} value={fax} placeholder="Edit fax" onChange={(e) => this.handleMultiValue(e.target.value, 'fax', idx)} />
@@ -81,7 +80,7 @@ export class PractitionerEditForm extends React.Component {
               }
             </div>
             <div className="form-group">
-              <label className="bold-font">Email</label>
+              <label className="bold-font">{t("email")}</label>
               {
                 email && email.length > 0 ? email.map((email, idx) => (
                     <input required type="text" className="form-control" key={`email${idx}`} value={email} placeholder="Edit email" onChange={(e) => this.handleMultiValue(e.target.value, 'email', idx)} />
@@ -90,7 +89,7 @@ export class PractitionerEditForm extends React.Component {
               }
             </div>
 
-            <button type="button" className="btn btn-success">Valider</button>
+            <button type="button" className="btn btn-success">{t("validateButton")}</button>
           </form>
         </div>
       </section>

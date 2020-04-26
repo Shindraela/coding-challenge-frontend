@@ -13,10 +13,6 @@ ul {
   padding: 0.5rem;
 }
 
-ul li a {
-  color: black;
-}
-
 span {
   padding: 0.3rem;
 }
@@ -27,6 +23,16 @@ span {
 
 .btn {
   margin: 0.5rem;
+}
+
+.lng-btn {
+  height: 1.5rem;
+  padding: 0;
+}
+
+.lng-btn img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .position-btn {

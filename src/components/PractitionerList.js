@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import uniqBy from 'lodash/uniqBy';
 import { connect } from 'react-redux';
-import { fetchPractitioners } from './actions/index';
+import { fetchPractitioners } from '../actions/index';
 import { Link } from "react-router-dom";
 
 export class PractitionerList extends Component {
@@ -18,7 +18,7 @@ export class PractitionerList extends Component {
   }
 
   renderPractitioners() {
-    const { practitioners } = this.props;
+    const { practitioners, t } = this.props;
 
     const practitionersFiltered = practitioners.reduce((accumulate = [], practitioner) => {
       const { id, firstName, lastName } = practitioner;
@@ -51,7 +51,7 @@ export class PractitionerList extends Component {
           <li key={practitioner.id}><Link to={`/practitioner/${practitioner.id}`}>{practitioner.name}</Link></li>
           ))}
         </ul>
-      </div> : <div className="row">Pas de praticiens sur cette page.</div>;
+      </div> : <div className="row">{t("noPractitioners")}</div>;
   }
 
   getPreviousItems() {
@@ -76,7 +76,7 @@ export class PractitionerList extends Component {
   }
 
   render() {
-    const { error, loading, urlPreviousPage, urlNextPage } = this.props;
+    const { error, loading, urlPreviousPage, urlNextPage, t } = this.props;
     const { term } = this.state;
 
     if (error) return <div>Error! {error.message}</div>;
@@ -87,16 +87,19 @@ export class PractitionerList extends Component {
 
     return (
       <section className="container">
-        <h1>Liste des praticiens</h1>
-        <div className="row">
-          <span>Recherchez un nom :</span>
-          <input name="term" type="text" value={term} onChange={(e) => this.handleTermSearch(e.target.value)} />
-        </div>
+        <h1>{t("practitionersListTitle")}</h1>
+
+        <form>
+          <div className="form-group">
+            <label>{t("searchInput")} :</label>
+            <input name="term" type="text" className="form-control search-input" value={term} onChange={(e) => this.handleTermSearch(e.target.value)} />
+          </div>
+        </form>
 
         {this.renderPractitioners()}
         <div className="row position-btn">
-          {urlPreviousPage && <button type="button" className="btn btn-primary" onClick={() => this.getPreviousItems()}>Précedent</button>}
-          {urlNextPage && <button type="button" className="btn btn-primary" onClick={() => this.getNextItems()}>Suivant</button>}
+          {urlPreviousPage && <button type="button" className="btn btn-primary" onClick={() => this.getPreviousItems()}>{t("previousButton")}</button>}
+          {urlNextPage && <button type="button" className="btn btn-primary" onClick={() => this.getNextItems()}>{t("nextButton")}</button>}
         </div>
       </section>
     );
@@ -111,5 +114,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchPractitioners: (url) => dispatch(fetchPractitioners(url)),
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PractitionerList);

@@ -2,4 +2,8 @@
   .position-btn {
     right: 22rem;
   }
+
+  .search-input {
+    max-width: 50%;
+  }
 }
