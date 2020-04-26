@@ -66,7 +66,7 @@ export class PractitionerList extends Component {
 
   handleTermSearch(term) {
     const { fetchPractitioners } = this.props;
-    const searchUrl = `http://hapi.fhir.org/baseDstu3/Practitioner?given=${term}&_format=json&_pretty=true`;
+    const searchUrl = `https://hapi.fhir.org/baseDstu3/Practitioner?given=${term}&_format=json&_pretty=true`;
     
     this.setState({
       term

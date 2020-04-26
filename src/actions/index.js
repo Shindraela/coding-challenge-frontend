@@ -13,7 +13,7 @@ const formatPractitioners = (practitioners) =>
   }));
 
 export const fetchPractitioners = (url) => (dispatch) => {
-  const requestUrl = url || 'http://hapi.fhir.org/baseDstu3/Practitioner';
+  const requestUrl = url || 'https://hapi.fhir.org/baseDstu3/Practitioner';
 
   axios.get(requestUrl).then((res) => {
     let practitionersFormatted = [];
@@ -91,7 +91,7 @@ export const updatePractitioner = (practitioner) => (dispatch) => {
     ]
   }
 
-  axios.put(`http://hapi.fhir.org/baseDstu3/Practitioner/${practitioner.id}`, formatUpdatedPractitioner, { headers: headers }).then((res) => {
+  axios.put(`https://hapi.fhir.org/baseDstu3/Practitioner/${practitioner.id}`, formatUpdatedPractitioner, { headers: headers }).then((res) => {
     dispatch({ type: UPDATE_PRACTITIONER, payload: practitioner });
   });
 }
