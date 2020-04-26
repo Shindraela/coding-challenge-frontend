@@ -46,46 +46,46 @@ export class PractitionerEditForm extends React.Component {
           <form method="PUT" className="form" onSubmit={this.onSubmit}>
             <div className="form-group">
               <label className="bold-font">{t("lastName")}</label>
-              <input required name="lastName" type="text" className="form-control" value={lastName} onChange={(e) => this.handleValue(e.target.value, 'lastName')} />
+              <input name="lastName" type="text" className="form-control" value={lastName} onChange={(e) => this.handleValue(e.target.value, 'lastName')} />
             </div>
             <div className="form-group">
               <label className="bold-font">{t("firstName")}</label>
-              <input required name="firstName" type="text" className="form-control" value={firstName} onChange={(e) => this.handleValue(e.target.value, 'firstName')} />
+              <input name="firstName" type="text" className="form-control" value={firstName} onChange={(e) => this.handleValue(e.target.value, 'firstName')} />
             </div>
             <div className="form-group">
               <label className="bold-font">{t("address")}</label>
               {
                 address && address.length > 0 ? address.map((address, idx) => (
-                    <input required type="text" className="form-control" key={`address${idx}`} value={address} placeholder="Edit address" onChange={(e) => this.handleMultiValue(e.target.value, 'address', idx)} />
+                    <input type="text" className="form-control" key={`address${idx}`} value={address} placeholder="Edit address" onChange={(e) => this.handleMultiValue(e.target.value, 'address', idx)} />
                   )) :
-                  <input required type="text" className="form-control" placeholder="Edit address" />
+                  <input type="text" className="form-control" placeholder="Edit address" />
               }
             </div>
             <div className="form-group">
               <label className="bold-font">{t("phone")}</label>
               {
                 phone && phone.length > 0 ? phone.map((phone, idx) => (
-                    <input required type="text" className="form-control" key={`phone${idx}`} value={phone} placeholder="Edit phone" onChange={(e) => this.handleMultiValue(e.target.value, 'phone', idx)} />
+                    <input type="text" className="form-control" key={`phone${idx}`} value={phone} placeholder="Edit phone" onChange={(e) => this.handleMultiValue(e.target.value, 'phone', idx)} />
                   )) :
-                  <input required type="text" className="form-control" placeholder="Edit phone" />
+                  <input type="text" className="form-control" placeholder="Edit phone" />
               }
             </div>
             <div className="form-group">
               <label className="bold-font">{t("fax")}</label>
               {
                 fax && fax.length > 0 ? fax.map((fax, idx) => (
-                    <input required type="text" className="form-control" key={`fax${idx}`} value={fax} placeholder="Edit fax" onChange={(e) => this.handleMultiValue(e.target.value, 'fax', idx)} />
+                    <input type="text" className="form-control" key={`fax${idx}`} value={fax} placeholder="Edit fax" onChange={(e) => this.handleMultiValue(e.target.value, 'fax', idx)} />
                   )) :
-                  <input required type="text" className="form-control" placeholder="Edit fax" />
+                  <input type="text" className="form-control" placeholder="Edit fax" />
               }
             </div>
             <div className="form-group">
               <label className="bold-font">{t("email")}</label>
               {
                 email && email.length > 0 ? email.map((email, idx) => (
-                    <input required type="text" className="form-control" key={`email${idx}`} value={email} placeholder="Edit email" onChange={(e) => this.handleMultiValue(e.target.value, 'email', idx)} />
+                    <input type="text" className="form-control" key={`email${idx}`} value={email} placeholder="Edit email" onChange={(e) => this.handleMultiValue(e.target.value, 'email', idx)} />
                   )) :
-                  <input required type="text" className="form-control" placeholder="Edit email" />
+                  <input type="text" className="form-control" placeholder="Edit email" />
               }
             </div>
 
