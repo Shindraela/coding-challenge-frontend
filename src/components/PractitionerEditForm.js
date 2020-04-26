@@ -89,7 +89,7 @@ export class PractitionerEditForm extends React.Component {
               }
             </div>
 
-            <button type="button" className="btn btn-success">{t("validateButton")}</button>
+            <button className="btn btn-success">{t("validateButton")}</button>
           </form>
         </div>
       </section>
